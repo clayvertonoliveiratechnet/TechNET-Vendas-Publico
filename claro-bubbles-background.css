@@ -1,0 +1,9 @@
+.claro-bubbles-background{position:fixed;inset:0;z-index:1;overflow:hidden;pointer-events:none;contain:strict;isolation:isolate}
+.claro-bubble{position:absolute;left:0;top:0;width:var(--bubble-size);height:var(--bubble-size);display:grid;place-items:center;border:1px solid rgba(227,32,43,.13);border-radius:50%;background:radial-gradient(circle at 36% 30%,rgba(255,255,255,.12),rgba(227,32,43,.018) 58%,transparent 76%);box-shadow:inset 0 0 22px rgba(227,32,43,.025),0 8px 32px rgba(17,18,23,.025);opacity:0;will-change:transform,opacity;transform:translate3d(0,0,0)}
+.claro-bubble-logo{width:69%;height:auto;overflow:visible;opacity:.52;filter:saturate(.78);transform:translateY(1%)}
+.claro-bubble-logo text{font-family:Arial,Helvetica,sans-serif;font-size:34px;font-weight:700;letter-spacing:-2.6px;fill:#e3202b}
+.claro-bubble-logo path{fill:#e3202b}
+.claro-bubble-particle{position:absolute;left:0;top:0;width:var(--particle-size);height:var(--particle-size);border:1px solid rgba(227,32,43,.22);border-radius:50%;background:rgba(227,32,43,.055);opacity:0;will-change:transform,opacity}
+.login-view{isolation:auto}.login-shell,.app>.main{position:relative;z-index:2}
+@media(max-width:760px){.claro-bubble{border-color:rgba(227,32,43,.1)}.claro-bubble-logo{opacity:.42}}
+@media(prefers-reduced-motion:reduce){.claro-bubble{opacity:.1!important;will-change:auto}.claro-bubble-particle{display:none}}

@@ -1,0 +1,61 @@
+/* TechNET Axis desktop alignment v112
+   Um único eixo visual para navbar, cabeçalho e conteúdo.
+   Corrige divergências entre containers legados sem alterar lógica. */
+
+:root{
+  --tn-axis-max:1440px;
+  --tn-axis-gutter:20px;
+}
+
+@media (min-width:981px){
+  .app>.main{
+    width:100%!important;
+    max-width:none!important;
+    margin-left:0!important;
+    margin-right:0!important;
+  }
+
+  .apple-navbar,
+  .main>.topbar,
+  .main>.content{
+    width:min(var(--tn-axis-max),calc(100vw - (var(--tn-axis-gutter) * 2)))!important;
+    max-width:var(--tn-axis-max)!important;
+    box-sizing:border-box!important;
+  }
+
+  .apple-navbar{
+    left:50%!important;
+    right:auto!important;
+    margin:0!important;
+    transform:translateX(-50%)!important;
+  }
+
+  .main>.topbar,
+  .main>.content{
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+
+  .main>.content{
+    padding-left:0!important;
+    padding-right:0!important;
+  }
+
+  .main>.content>.admin-panel,
+  .main>.content>.sales-overview,
+  .main>.content>.smart-sale,
+  .main>.content>.bo-queue,
+  .main>.content>.ip74-shell,
+  .main>.content>.tg77-shell{
+    width:100%!important;
+    max-width:100%!important;
+    margin-left:0!important;
+    margin-right:0!important;
+  }
+}
+
+@media (min-width:981px) and (max-width:1180px){
+  :root{
+    --tn-axis-gutter:14px;
+  }
+}

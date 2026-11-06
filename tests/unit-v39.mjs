@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {ROLE_LABEL,STATUS_LABEL,escapeHtml,normalizeText,formatMoney,statusClass,safeErrorMessage,clamp} from '../core-utils-v38.js';
+assert.equal(ROLE_LABEL.consultant,'Consultor');
+assert.equal(STATUS_LABEL.pending_correction,'Pendência');
+assert.equal(escapeHtml('<b>"x"</b>'),'&lt;b&gt;&quot;x&quot;&lt;/b&gt;');
+assert.equal(normalizeText('São Gonçalo'),'SAO GONCALO');
+assert.equal(statusClass('approved'),'green');
+assert.equal(statusClass('cancelled'),'red');
+assert.equal(clamp(12,0,10),10);
+assert.ok(formatMoney(12.5).includes('12,50'));
+assert.equal(safeErrorMessage(new Error('  teste   de erro  ')),'teste de erro');
+console.log('UNIT_V39_OK');

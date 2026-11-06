@@ -1,0 +1,69 @@
+# Secrets / local workers
+sync/
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Local/runtime
+.firebase/
+node_modules/
+__pycache__/
+*.log
+*.dat
+*.tmp
+*.lock
+
+# Local design/backups
+.design-backups/
+.design-preview/
+_pre_v47_backup/
+
+# One-off local scripts / old generated versions
+/*.py
+/run_*.cmd
+/run_*.ps1
+/trigger_*.txt
+/deploy*.txt
+
+# Legacy app/service-worker versions
+/app-v*.js
+!/app-v48.js
+/sw-v*.js
+!/sw-v48.js
+/admin-dashboard-v*.js
+!/admin-dashboard-v20.js
+/field-workflow-v*.js
+!/field-workflow-v48.js
+/observability-v*.js
+!/observability-v46.js
+/android-fix-v*.css
+!/android-fix-v43.css
+/ui-system-v*.css
+!/ui-system-v40.css
+/professional-v*.css
+/studio-v42.*
+/future-v41.css
+
+# Local-only extras
+.preview-firebase.json
+logo-backup-*.png
+.github/workflows/ 
+
+# Supabase CLI local state
+supabase/.temp/
+
+# TECHNET - CONSULTIVO Android local/build state
+consultivo-android/.gradle/
+consultivo-android/local.properties
+consultivo-android/**/build/
+
+consultivo-android/.kotlin/
+
+# Generated CONSULTIVO self-update packages
+/downloads/consultivo/TECHNET-CONSULTIVO.zip
+/downloads/consultivo/consultivo-app-update.json

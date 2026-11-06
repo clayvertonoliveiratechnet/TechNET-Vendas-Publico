@@ -1,0 +1,23 @@
+/* Dashboard product status suite v90 */
+.adm-product-status-suite{display:grid;gap:14px;margin:14px 0}
+.adm-product-status{padding:14px;border:1px solid var(--tn-line,#e4e7ec);border-radius:18px;background:var(--tn-surface,#fff);box-shadow:var(--tn-shadow-sm,0 1px 2px rgba(15,23,42,.04))}
+.adm-product-status-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;padding:0 2px}
+.adm-product-status-head>div{display:grid;gap:2px;min-width:0}
+.adm-product-status-head span{font-size:11px;font-weight:900;letter-spacing:.055em;color:var(--tn-ink,#172033)}
+.adm-product-status-head small{font-size:10px;color:var(--tn-muted,#667085)}
+.adm-product-status-head strong{flex:0 0 auto;padding:6px 9px;border-radius:999px;font-size:10px;font-weight:900;background:var(--tn-surface-soft,#f8fafc);border:1px solid var(--tn-line,#e4e7ec)}
+.adm-product-status.installed .adm-product-status-head strong{background:#ecfdf3;border-color:#abefc6;color:#067647}
+.adm-product-status.pending .adm-product-status-head strong{background:#fffaeb;border-color:#fedf89;color:#b54708}
+.adm-product-status.all .adm-product-status-head strong{background:#eff8ff;border-color:#b2ddff;color:#175cd3}
+.adm-product-status-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.adm-product-status-grid .adm-mini{min-height:116px;padding:15px!important}
+.adm-product-status-grid .adm-mini>div:last-child{min-width:0}
+.adm-product-status-grid .adm-mini span{white-space:normal}
+.adm-product-status-grid .adm-mini b{font-variant-numeric:tabular-nums}
+.adm-product-status-grid .product-revenue b{font-size:clamp(19px,2vw,28px)!important;white-space:nowrap}
+:root[data-theme="dark"] .adm-product-status.installed .adm-product-status-head strong{background:rgba(22,135,93,.14);border-color:rgba(22,135,93,.26);color:#75e0b5}
+:root[data-theme="dark"] .adm-product-status.pending .adm-product-status-head strong{background:rgba(185,107,9,.14);border-color:rgba(185,107,9,.27);color:#f7b955}
+:root[data-theme="dark"] .adm-product-status.all .adm-product-status-head strong{background:rgba(23,92,211,.15);border-color:rgba(23,92,211,.28);color:#84adff}
+@media(max-width:980px){.adm-product-status-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.adm-product-status-suite{gap:10px;margin:10px 0}.adm-product-status{padding:10px;border-radius:15px}.adm-product-status-head{align-items:flex-start}.adm-product-status-head span{font-size:10px}.adm-product-status-grid{gap:8px}.adm-product-status-grid .adm-mini{min-height:105px;padding:12px!important}.adm-product-status-grid .adm-mini b{font-size:clamp(22px,7vw,29px)!important}.adm-product-status-grid .product-revenue b{font-size:clamp(17px,5.2vw,22px)!important}}
+@media(max-width:340px){.adm-product-status-grid{grid-template-columns:1fr}}

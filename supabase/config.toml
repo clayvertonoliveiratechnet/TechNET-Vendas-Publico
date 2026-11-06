@@ -1,0 +1,9 @@
+[functions.tv-imperium-rest-auth]
+verify_jwt = false
+
+[functions.tv-consultivo-device]
+verify_jwt = true
+
+[functions.tv-consultivo-location]
+# Autenticação customizada pelo token opaco e revogável do aparelho.
+verify_jwt = false

@@ -1,0 +1,37 @@
+const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function kmlFeatures(text){
+ const xml=new DOMParser().parseFromString(text,'text/xml'),out=[];
+ for(const p of [...xml.querySelectorAll('Placemark')]){
+  const props={}; for(const d of p.querySelectorAll('Data'))props[d.getAttribute('name')]=d.querySelector('value')?.textContent?.trim()||'';
+  for(const s of p.querySelectorAll('SimpleData'))props[s.getAttribute('name')]=s.textContent?.trim()||'';
+  const name=props.BAIRRO||props.name||p.querySelector(':scope > name')?.textContent?.trim(); if(!name)continue;
+  const polys=[]; for(const poly of p.querySelectorAll('Polygon')){
+   const rings=[]; for(const ring of poly.querySelectorAll('LinearRing coordinates')){
+    const pts=ring.textContent.trim().split(/\s+/).map(x=>x.split(',').slice(0,2).map(Number)).filter(x=>x.length===2&&x.every(Number.isFinite)); if(pts.length>=4)rings.push(pts);
+   } if(rings.length)polys.push(rings);
+  }
+  if(!polys.length)continue; const geometry=polys.length===1?{type:'Polygon',coordinates:polys[0]}:{type:'MultiPolygon',coordinates:polys};
+  out.push({type:'Feature',properties:{name,region:props.REG_ADM||'',code:props.N_||'',law:props.Lei_n_||''},geometry});
+ } return out;
+}
+async function featuresFromFile(file){
+ const lower=file.name.toLowerCase(); if(lower.endsWith('.kml'))return kmlFeatures(await file.text());
+ if(lower.endsWith('.kmz')||lower.endsWith('.zip')){const zip=await JSZip.loadAsync(file),names=Object.keys(zip.files).filter(n=>n.toLowerCase().endsWith('.kml')); if(!names.length)throw new Error('Nenhum KML encontrado no arquivo'); let all=[]; for(const n of names)all.push(...kmlFeatures(await zip.files[n].async('text'))); return all}
+ throw new Error('Use KML, KMZ ou ZIP com KML');
+}
+function opt(rows,selected){return '<option value="">Nenhum</option>'+rows.map(x=>`<option value="${x.user_id}" ${x.user_id===selected?'selected':''}>${e(x.full_name)}</option>`).join('')}
+export async function renderTerritories(ctx){
+ const {sb,content,profile,toast,setTitle}=ctx; setTitle('Territórios','Supervisores e consultores por bairro');
+ const [{data:geo,error:gerr},{data:profiles,error:perr},{data:teams}]=await Promise.all([sb.rpc('tv_territory_map'),sb.from('tv_profiles').select('user_id,full_name,role,team_id,active').eq('active',true).order('full_name'),sb.from('tv_teams').select('id,name').order('name')]);
+ if(gerr)throw gerr;if(perr)throw perr;const sup=(profiles||[]).filter(x=>['supervisor','admin'].includes(x.role)),cons=(profiles||[]).filter(x=>x.role==='consultant');
+ content.innerHTML=`<div class="territory-head card"><div><div class="kicker">GESTÃO DE TERRITÓRIOS</div><h2>Bairros e responsáveis</h2><p class="muted">Clique em um bairro para definir supervisor e consultores.</p></div><div class="actions">${profile.role==='admin'?'<label class="ghost territory-import">Importar limites<input id="territoryFile" type="file" accept=".kml,.kmz,.zip" hidden></label><button id="assignGps" class="ghost">Associar vendas GPS</button>':''}</div></div><div class="stats territory-stats"><div class="stat"><div class="label">Bairros</div><div class="value" id="tCount">0</div></div><div class="stat"><div class="label">Sem supervisor</div><div class="value" id="tNoSup">0</div></div><div class="stat"><div class="label">Sem consultor</div><div class="value" id="tNoCon">0</div></div><div class="stat"><div class="label">Vendas associadas</div><div class="value" id="tSales">0</div></div></div><div class="territory-grid"><div class="card"><div id="territoryMap"></div></div><aside id="territoryEditor" class="card territory-editor"><div class="empty">Selecione um bairro no mapa.</div></aside></div>`;
+ let map=L.map('territoryMap').setView([-5.8,-35.22],12);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(map);window.__tvTerritoryMap=map;
+ function totals(fc){const fs=fc?.features||[];document.getElementById('tCount').textContent=fs.length;document.getElementById('tNoSup').textContent=fs.filter(f=>!f.properties?.supervisor).length;document.getElementById('tNoCon').textContent=fs.filter(f=>!(f.properties?.consultants||[]).length).length;document.getElementById('tSales').textContent=fs.reduce((a,f)=>a+Number(f.properties?.sales||0),0)}
+ async function reload(){const {data,error}=await sb.rpc('tv_territory_map');if(error)throw error;totals(data);map.eachLayer(l=>{if(l instanceof L.GeoJSON)map.removeLayer(l)});if(!(data?.features||[]).length)return;const layer=L.geoJSON(data,{style:f=>({weight:2,fillOpacity:.18}),onEachFeature:(f,l)=>{l.bindTooltip(`${e(f.properties.name)} · ${f.properties.sales||0} vendas`);l.on('click',()=>openEditor(f))}}).addTo(map);map.fitBounds(layer.getBounds(),{padding:[20,20]})}
+ function openEditor(f){const p=f.properties||{},selected=(p.consultants||[]).map(x=>x.user_id),team=p.supervisor?.team_id||(p.consultants||[])[0]?.team_id||'';const ed=document.getElementById('territoryEditor');ed.innerHTML=`<div class="kicker">${e(p.region||'BAIRRO')}</div><h2>${e(p.name)}</h2><p class="muted">${p.sales||0} vendas · ${p.installed||0} instaladas</p>${profile.role==='admin'?`<label>Equipe<select id="tTeam"><option value="">Sem equipe</option>${(teams||[]).map(t=>`<option value="${t.id}" ${t.id===team?'selected':''}>${e(t.name)}</option>`).join('')}</select></label><label>Supervisor<select id="tSup">${opt(sup,p.supervisor?.user_id||'')}</select></label><label>Consultores<div class="territory-consultants">${cons.map(c=>`<label class="check"><input type="checkbox" value="${c.user_id}" ${selected.includes(c.user_id)?'checked':''}><span>${e(c.full_name)}</span></label>`).join('')||'<div class="empty">Nenhum consultor ativo.</div>'}</div></label><button id="saveTerritory" class="primary">Salvar responsáveis</button>`:`<div class="verified-box"><b>${e(p.supervisor?.name||'Sem supervisor')}</b><span>${(p.consultants||[]).map(x=>e(x.name)).join(', ')||'Sem consultores definidos'}</span></div>`}`;if(profile.role==='admin')document.getElementById('saveTerritory').onclick=async()=>{const consultant_ids=[...ed.querySelectorAll('.territory-consultants input:checked')].map(x=>x.value),{error}=await sb.rpc('tv_admin_set_territory_assignments',{p_area_id:f.id,p_supervisor_id:document.getElementById('tSup').value||null,p_consultant_ids:consultant_ids,p_team_id:document.getElementById('tTeam').value||null});if(error)return toast(error.message);toast('Território atualizado');await reload()}}
+ if(profile.role==='admin'){
+  document.getElementById('territoryFile').onchange=async ev=>{const file=ev.target.files?.[0];if(!file)return;try{toast('Importando limites...');const features=await featuresFromFile(file);if(!features.length)throw new Error('Nenhum bairro encontrado');const {data,error}=await sb.rpc('tv_admin_import_territories',{p_features:features});if(error)throw error;toast(`${data} bairros importados`);await sb.rpc('tv_assign_sales_to_neighborhoods',{p_days:3650});await reload()}catch(err){console.error(err);toast(err.message||'Falha ao importar bairros')}finally{ev.target.value=''}};
+  document.getElementById('assignGps').onclick=async()=>{const {data,error}=await sb.rpc('tv_assign_sales_to_neighborhoods',{p_days:3650});if(error)return toast(error.message);toast(`${data||0} vendas associadas`);await reload()};
+ }
+ totals(geo);await reload();setTimeout(()=>map.invalidateSize(),60)
+}

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#d80012">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>TECHNET - CONSULTIVO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="/styles.css?v=8">
+  <link rel="stylesheet" href="/field-suite.css?v=9">
+  <link rel="stylesheet" href="/sales-ui-v48.css?v=60">
+  <link rel="stylesheet" href="/consultivo-app.css?v=23">
+</head>
+<body>
+  <div id="cvBoot" class="cv-boot">
+    <div class="cv-boot-hero"><img class="cv-brand-mascot" src="/consultivo-cover-team.webp?v=1" alt="TECHNET CONSULTIVO"><b>TECHNET</b><span>CONSULTIVO</span></div>
+    <div class="cv-boot-card">
+      <div class="cv-spinner"></div>
+      <strong>TECHNET - CONSULTIVO</strong>
+      <span>Preparando sua jornada…</span>
+    </div>
+  </div>
+
+  <div id="cvApp" class="cv-app" hidden>
+    <header id="cvHero" class="cv-hero">
+      <div class="cv-hero-orb one"></div><div class="cv-hero-orb two"></div>
+      <button id="cvAccountButton" class="cv-hero-brand" type="button" aria-label="Abrir minha conta"><div><b>TECHNET</b><span>CONSULTIVO</span></div></button>
+      <button class="cv-bell" type="button" aria-label="Notificações">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+      </button>
+      <div class="cv-hero-copy"><h1 id="cvHeroTitle">Olá, Consultor!</h1><p id="cvHeroSubtitle">Bora pra mais um grande dia de resultados! 🚀</p></div>
+      <img id="cvHeroMascot" class="cv-hero-mascot" src="/consultivo-mascot-female.webp?v=1" alt="" aria-hidden="true" decoding="async" fetchpriority="high">
+    </header>
+
+    <main id="cvContent" class="cv-content" aria-live="polite"></main>
+
+    <nav class="cv-bottom-nav" aria-label="Navegação do Consultivo">
+      <button data-screen="home" class="active" aria-current="page">
+        <span class="cv-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3Z"/></svg></span><span>Início</span>
+      </button>
+      <button data-screen="tracking">
+        <span class="cv-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M12 22s7-6.1 7-13A7 7 0 1 0 5 9c0 6.9 7 13 7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg></span><span>Rastreamento</span>
+      </button>
+      <button data-screen="sales">
+        <span class="cv-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M5 20V11M12 20V4M19 20v-6"/></svg></span><span>Vendas</span>
+      </button>
+      <button data-screen="team">
+        <span class="cv-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm6-1a3 3 0 1 0 0-6M2 21v-3a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v3m1-8a5 5 0 0 1 5 5v3"/></svg></span><span>Equipe</span>
+      </button>
+    </nav>
+  </div>
+
+  <div id="cvToast" class="cv-toast" role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script type="module" src="/consultivo-app.js?v=24"></script>
+</body>
+</html>

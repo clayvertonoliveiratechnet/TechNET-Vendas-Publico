@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TECHNET - CONSULTIVO</string>
+    <string name="welcome_title">TECHNET - CONSULTIVO</string>
+    <string name="welcome_subtitle">Operação comercial em campo</string>
+    <string name="load_error_title">Não foi possível abrir o sistema</string>
+    <string name="load_error_message">Verifique sua conexão com a internet e tente novamente.</string>
+    <string name="retry">Tentar novamente</string>
+</resources>

@@ -1,0 +1,15 @@
+{
+  "name": "technet-vendas",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests/unit-v39.mjs && node tests/device-location.mjs && node tests/consultivo-tracking-runtime.mjs && python tests/static-v39.py && python tests/consultivo-ui-static.py && python tests/consultivo-map-location-static.py",
+    "check": "node --check claro-command-v120.js && node --check app-v48.js && node --check commercial-location-v1.js && node --check consultivo-app.js && node --check device-location.js && node --check apple-navbar-v82.js && node --check android-dashboard-v82.js && node --check mobile-bottom-nav-motion.js && node --check mobile-sidebar-motion.js && node --check ui-icons-v48.js && node --check admin-dashboard-v20.js && node --check supervisor-team-pulse-v113.js && node --check admin-control-v42.js && node --check field-workflow-v48.js && node --check backoffice-imperium-v69.js && node --check backoffice-imperium-admin-fix-v70.js && node --check imperium-products-page-v74.js && node --check imperium-product-catalog-admin-v75.js && node --check team-goals-v77.js && node --check product-base-guard-v68.js && node --check observability-v46.js && node --check core-utils-v38.js && node --check sw-v48.js && node --check webmcp-tools.js",
+    "build": "npm run check",
+    "test:e2e": "npm --prefix e2e test",
+    "test:e2e:headed": "npm --prefix e2e run test:headed",
+    "test:e2e:ui": "npm --prefix e2e run test:ui",
+    "test:e2e:report": "npm --prefix e2e run report",
+    "test:e2e:install": "npm --prefix e2e exec -- playwright install chromium"
+  }
+}

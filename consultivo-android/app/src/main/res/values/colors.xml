@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="technet_red">#D71920</color>
+    <color name="technet_red_dark">#A90F15</color>
+    <color name="technet_surface">#FFFFFF</color>
+    <color name="technet_text">#171717</color>
+    <color name="technet_text_secondary">#6B7280</color>
+</resources>

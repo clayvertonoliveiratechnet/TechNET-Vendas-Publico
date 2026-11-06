@@ -1,0 +1,148 @@
+/* TechNET dark-mode normalization v117
+   Loaded last to prevent light component states from leaking into dark mode. */
+
+:root[data-theme="dark"]{
+  color-scheme:dark;
+}
+
+/* Desktop Apple navigation */
+:root[data-theme="dark"] .apple-nav-link.active,
+:root[data-theme="dark"] .apple-nav-link[aria-current="page"],
+:root[data-theme="dark"] .apple-nav-more-btn.active{
+  color:#fff!important;
+  background:rgba(217,45,58,.16)!important;
+  box-shadow:inset 0 0 0 1px rgba(255,138,148,.12),0 5px 16px rgba(0,0,0,.16)!important;
+}
+
+:root[data-theme="dark"] .apple-nav-menu button:hover,
+:root[data-theme="dark"] .apple-nav-menu button.active{
+  color:#fff!important;
+  background:rgba(255,255,255,.075)!important;
+}
+
+:root[data-theme="dark"] .apple-nav-account-btn:hover,
+:root[data-theme="dark"] .apple-nav-account-btn[aria-expanded="true"]{
+  color:#fff!important;
+  border-color:rgba(255,255,255,.14)!important;
+  background:rgba(255,255,255,.08)!important;
+}
+
+:root[data-theme="dark"] .apple-nav-menu .apple-nav-logout:hover{
+  color:#ffb3b9!important;
+  background:rgba(217,45,58,.15)!important;
+}
+
+/* Android/mobile navigation: active tabs must remain dark surfaces. */
+:root[data-theme="dark"] .mobile-bottom-nav.android-tabs-v4 button:not(.main-add).active,
+:root[data-theme="dark"] .mobile-bottom-nav.android-tabs-v4 button:not(.main-add)[aria-current="page"]{
+  color:#fff!important;
+  background:rgba(217,45,58,.18)!important;
+  box-shadow:inset 0 0 0 1px rgba(255,138,148,.12),0 7px 18px rgba(0,0,0,.18)!important;
+}
+
+/* Login feedback and browser-filled fields */
+:root[data-theme="dark"] .caps-lock:not(:empty){
+  border:1px solid rgba(247,189,99,.26)!important;
+  background:rgba(185,107,9,.16)!important;
+  color:#ffd08a!important;
+}
+
+:root[data-theme="dark"] .login-mobile-theme{
+  border-color:var(--cmd-border-strong,#475569)!important;
+  background:var(--cmd-surface-muted,#202936)!important;
+  color:var(--cmd-fg,#f5f7fa)!important;
+}
+
+:root[data-theme="dark"] input:-webkit-autofill,
+:root[data-theme="dark"] input:-webkit-autofill:hover,
+:root[data-theme="dark"] input:-webkit-autofill:focus,
+:root[data-theme="dark"] textarea:-webkit-autofill,
+:root[data-theme="dark"] select:-webkit-autofill{
+  -webkit-text-fill-color:var(--cmd-fg,#f5f7fa)!important;
+  -webkit-box-shadow:0 0 0 1000px var(--cmd-surface,#18202b) inset!important;
+  caret-color:var(--cmd-fg,#f5f7fa)!important;
+}
+
+:root[data-theme="dark"] option,
+:root[data-theme="dark"] optgroup{
+  background:var(--cmd-surface,#18202b);
+  color:var(--cmd-fg,#f5f7fa);
+}
+
+/* Team-goal status chips */
+:root[data-theme="dark"] .tg77-card header small,
+:root[data-theme="dark"] .tg77-disclosure-meta em{
+  border:1px solid rgba(82,214,160,.24)!important;
+  background:rgba(22,135,93,.17)!important;
+  color:#7de2b8!important;
+}
+
+/* Dashboard period controls used a light-only --surface fallback. */
+:root[data-theme="dark"] .adm-global-days{
+  border-color:var(--cmd-border,#334155)!important;
+  background:var(--cmd-surface,#18202b)!important;
+}
+
+/* Guided sale progress track inherited a light-only #eef0f2 background. */
+:root[data-theme="dark"] .sale-progress{
+  background:var(--cmd-border,#334155)!important;
+}
+
+/* Leaflet's default container is #ddd while tiles load. */
+:root[data-theme="dark"] .advanced-map,
+:root[data-theme="dark"] .leaflet-container{
+  background:var(--cmd-surface,#18202b)!important;
+}
+
+/* Native dialogs and Leaflet controls should not flash white. */
+:root[data-theme="dark"] dialog,
+:root[data-theme="dark"] .sale-dialog,
+:root[data-theme="dark"] .global-search-dialog{
+  color-scheme:dark;
+}
+
+:root[data-theme="dark"] .leaflet-bar a,
+:root[data-theme="dark"] .leaflet-control-layers,
+:root[data-theme="dark"] .leaflet-popup-content-wrapper,
+:root[data-theme="dark"] .leaflet-popup-tip{
+  border-color:var(--cmd-border,#334155)!important;
+  background:var(--cmd-surface,#18202b)!important;
+  color:var(--cmd-fg,#f5f7fa)!important;
+}
+
+:root[data-theme="dark"] .leaflet-bar a:hover{
+  background:var(--cmd-surface-muted,#202936)!important;
+}
+
+:root[data-theme="dark"] .leaflet-control-attribution{
+  background:rgba(24,32,43,.9)!important;
+  color:var(--cmd-muted,#aeb8c8)!important;
+}
+
+:root[data-theme="dark"] .leaflet-control-attribution a{
+  color:#ff8a94!important;
+}
+
+
+/* Team sales tabs injected at runtime must follow dark surfaces. */
+:root[data-theme="dark"] .team-sales-tabs-v67{
+  border-color:var(--cmd-border,#334155)!important;
+  background:var(--cmd-surface,#18202b)!important;
+}
+:root[data-theme="dark"] .team-sales-tabs-v67 button{
+  color:var(--cmd-muted,#aeb8c8)!important;
+  background:transparent!important;
+}
+:root[data-theme="dark"] .team-sales-tabs-v67 button:hover{
+  color:var(--cmd-fg,#f5f7fa)!important;
+  background:var(--cmd-surface-muted,#202936)!important;
+}
+:root[data-theme="dark"] .team-sales-tabs-v67 button.active{
+  color:#fff!important;
+  background:#2b3340!important;
+  box-shadow:0 4px 10px rgba(0,0,0,.22)!important;
+}
+:root[data-theme="dark"] .team-sales-tabs-v67 button[data-view="draft"].active{
+  color:#fff!important;
+  background:#b51d28!important;
+}

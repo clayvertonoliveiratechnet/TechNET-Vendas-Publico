@@ -1,0 +1,17 @@
+/* TechNET Design System v38 — camada estável sobre estilos legados */
+:root{
+ --tv-bg:#f7f8fa;--tv-surface:#fff;--tv-surface-soft:#f7f8fa;--tv-text:#111217;--tv-muted:#737780;
+ --tv-border:#e8e9ed;--tv-border-strong:#dfe1e6;--tv-brand:#e3202b;--tv-brand-strong:#bd1620;
+ --tv-success:#16875d;--tv-warning:#b96b09;--tv-danger:#c91d24;--tv-info:#315f9b;
+ --tv-r-sm:10px;--tv-r-md:14px;--tv-r-lg:18px;--tv-r-xl:22px;
+ --tv-shadow-sm:0 1px 2px rgba(16,24,40,.035);--tv-shadow-md:0 8px 24px rgba(16,24,40,.045);
+ --tv-space-1:6px;--tv-space-2:10px;--tv-space-3:14px;--tv-space-4:18px;--tv-space-5:24px;
+ --tv-control:44px;--tv-content:1680px;
+}
+body{background:var(--tv-bg);color:var(--tv-text)}
+.card,.adm-card,.stat,.adm-mini{border-color:var(--tv-border);box-shadow:var(--tv-shadow-md)}
+input,select,textarea{min-height:var(--tv-control);border-color:var(--tv-border-strong);border-radius:var(--tv-r-sm)}
+.primary,.ghost,.danger,.success,.adm-btn{min-height:var(--tv-control)}
+.primary{background:var(--tv-brand)!important}.primary:hover{background:var(--tv-brand-strong)!important}
+.muted{color:var(--tv-muted)}
+.content{max-width:var(--tv-content)}

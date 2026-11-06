@@ -1,0 +1,14 @@
+(()=>{
+  const baseByCity={Natal:'natal',Parnamirim:'natal',Extremoz:'natal','Macaíba':'natal','Ceará-Mirim':'natal','São Gonçalo do Amarante':'natal',Fortaleza:'fortaleza',Aquiraz:'fortaleza',Caucaia:'fortaleza','Eusébio':'fortaleza','Maracanaú':'fortaleza','Mossoró':'mossoro',Recife:'recife',Camaragibe:'recife','Jaboatão dos Guararapes':'recife',Olinda:'recife',Paulista:'recife'};
+  let boundCity=null,master=[],renderedOptions=null;
+  const optionSignature=dl=>[...dl.options].map(o=>`${o.value}\u0000${o.textContent||''}`).join('\u0001');
+  const currentBase=()=>{const city=document.querySelector('#sCity')?.selectedOptions?.[0]?.dataset?.name||'';return baseByCity[city]||''};
+  const allowed=(name,base)=>master.some(x=>x.value===name&&(!base||x.base===base));
+  function snapshot(){const dl=document.querySelector('#realProducts');if(!dl)return false;if(!master.length)master=[...dl.options].map(o=>{const text=(o.textContent||'').trim();const m=text.match(/ · (NATAL|FORTALEZA|MOSSORO|RECIFE)(?: · |$)/i);return{value:o.value,text,base:(m?.[1]||'').toLowerCase()}});return true}
+  function apply(){if(!snapshot())return;const dl=document.querySelector('#realProducts'),base=currentBase();dl.innerHTML='';for(const x of master.filter(x=>!base||x.base===base)){const o=document.createElement('option');o.value=x.value;o.textContent=x.text;dl.appendChild(o)}renderedOptions=optionSignature(dl);const input=document.querySelector('#sProduct');if(input){input.setCustomValidity('');if(input.value&&!allowed(input.value,base)){input.value='';const v=document.querySelector('#sProductValue'),g=document.querySelector('#sProductGroup');if(v)v.value='';if(g)g.value='';const h=document.querySelector('#productHint');if(h)h.textContent=`Selecione um produto válido da base ${base.toUpperCase()}.`}}}
+  function bind(){const city=document.querySelector('#sCity');if(!city||city===boundCity)return;boundCity=city;master=[];renderedOptions=null;city.addEventListener('change',apply);setTimeout(apply,0)}
+  document.addEventListener('input',e=>{if(e.target?.id==='sProduct')e.target.setCustomValidity('')},true);
+  document.addEventListener('click',e=>{const btn=e.target?.closest?.('#addProduct');if(!btn)return;const input=document.querySelector('#sProduct'),base=currentBase();snapshot();if(input?.value&&!allowed(input.value,base)){e.preventDefault();e.stopImmediatePropagation();input.setCustomValidity(`Este produto não pertence à base ${base.toUpperCase()}. Selecione um produto da lista correta.`);input.reportValidity()}},true);
+  new MutationObserver(mutations=>{bind();if(!mutations.some(m=>m.target?.id==='realProducts'||m.target?.closest?.('#realProducts')))return;const dl=document.querySelector('#realProducts');if(!dl)return;const signature=optionSignature(dl);if(signature===renderedOptions)return;master=[];snapshot();apply()}).observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+  bind();
+})();
